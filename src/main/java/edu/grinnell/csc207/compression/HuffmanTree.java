@@ -38,7 +38,7 @@ public class HuffmanTree {
             return frequency;
         }
 
-        public boolean isLeaf(){
+        public boolean isLeaf() {
             return left == null && right == null;
         }
     }
@@ -93,7 +93,7 @@ public class HuffmanTree {
      * Constructs a new HuffmanTree from the given file.
      * @param in the input file (as a BitInputStream)
      */
-    public HuffmanTree (BitInputStream in) {
+    public HuffmanTree(BitInputStream in) {
         root = readTree(in);
         codes = new HashMap<>();
         generateCodes(root, "");
@@ -124,7 +124,7 @@ public class HuffmanTree {
      * serialized format.
      * @param out the output file as a BitOutputStream
      */
-    public void serialize (BitOutputStream out) {
+    public void serialize(BitOutputStream out) {
         writeTree(out, root);
     }
 
@@ -146,7 +146,7 @@ public class HuffmanTree {
      * @param in the file to compress.
      * @param out the file to write the compressed output to.
      */
-    public void encode (BitInputStream in, BitOutputStream out) {
+    public void encode(BitInputStream in, BitOutputStream out) {
         int bits;
         while ((bits = in.readBits(8)) != -1) {
             String code = codes.get((short) bits);
@@ -169,7 +169,7 @@ public class HuffmanTree {
      * @param in the file to decompress.
      * @param out the file to write the decompressed output to.
      */
-    public void decode (BitInputStream in, BitOutputStream out) {
+    public void decode(BitInputStream in, BitOutputStream out) {
         Node node = root;
         while (true) {
             int bit = in.readBit();
