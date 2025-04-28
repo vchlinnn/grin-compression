@@ -77,16 +77,16 @@ public class HuffmanTree {
         generateCodes(root, "");
     }
 
-    private void generateCodes(Node node, String code) {
-        if (node == null) {
+    private void generateCodes(Node root, String code) {
+        if (root == null) {
             return;
         }
-        if (node.isLeaf()) {
-            codes.put(node.getValue(), code);
+        if (root.isLeaf()) {
+            codes.put(root.getValue(), code);
             return;
         }
-        generateCodes(node.left, code + "0");
-        generateCodes(node.right, code + "1");
+        generateCodes(root.left, code + "0");
+        generateCodes(root.right, code + "1");
     }
 
     /**
@@ -173,7 +173,9 @@ public class HuffmanTree {
         Node node = root;
         while (true) {
             int bit = in.readBit();
-            if (bit == -1) break;
+            if (bit == -1) {
+                break;
+            }
 
             if (bit == 0) {
                 node = node.left;

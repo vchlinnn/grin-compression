@@ -19,18 +19,18 @@ public class Grin {
      */
     public static void decode (String infile, String outfile) throws IOException {
         BitInputStream in = new BitInputStream(infile);
-            BitOutputStream out = new BitOutputStream(outfile);
+        BitOutputStream out = new BitOutputStream(outfile);
 
-            int magic = in.readBits(32);
-            if (magic != MAGIC_NUMBER) {
-                throw new IllegalArgumentException("Not a valid .grin file");
-            }
+        int magic = in.readBits(32);
+        if (magic != MAGIC_NUMBER) {
+            throw new IllegalArgumentException("Not a valid .grin file");
+        }
 
-            HuffmanTree tree = new HuffmanTree(in);
-            tree.decode(in, out);
+        HuffmanTree tree = new HuffmanTree(in);
+        tree.decode(in, out);
 
-            in.close();
-            out.close();
+        in.close();
+        out.close();
     }
 
     /**
@@ -45,12 +45,12 @@ public class Grin {
         Map<Short, Integer> freqMap = new HashMap<>();
 
         BitInputStream in = new BitInputStream(file);
-            int bits;
-            while ((bits = in.readBits(8)) != -1) {
-                short value = (short) bits;
-                freqMap.put(value, freqMap.getOrDefault(value, 0) + 1);
-            }
-            in.close();
+        int bits;
+        while ((bits = in.readBits(8)) != -1) {
+            short value = (short) bits;
+            freqMap.put(value, freqMap.getOrDefault(value, 0) + 1);
+        }
+        in.close();
 
         return freqMap;
     }
@@ -64,17 +64,17 @@ public class Grin {
      */
     public static void encode(String infile, String outfile) throws IOException {
         Map<Short, Integer> freqMap = createFrequencyMap(infile);
-            BitInputStream in = new BitInputStream(infile);
-            BitOutputStream out = new BitOutputStream(outfile);
+        BitInputStream in = new BitInputStream(infile);
+        BitOutputStream out = new BitOutputStream(outfile);
 
-            HuffmanTree tree = new HuffmanTree(freqMap);
+        HuffmanTree tree = new HuffmanTree(freqMap);
 
-            out.writeBits(MAGIC_NUMBER, 32); // write magic number
-            tree.serialize(out);             // write serialized tree
-            tree.encode(in, out);             // write encoded data
+        out.writeBits(MAGIC_NUMBER, 32); // write magic number
+        tree.serialize(out);             // write serialized tree
+        tree.encode(in, out);             // write encoded data
 
-            in.close();
-            out.close();
+        in.close();
+        out.close();
     }
 
     /**
@@ -97,7 +97,7 @@ public class Grin {
         } else if (command.equals("decode")) {
             decode(infile, outfile);
         } else {
-            System.out.println("Invalid command. Must be encode or decode.");
+            System.out.println("Invalid command.");
         }
     }
     
